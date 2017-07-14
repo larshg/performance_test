@@ -1,6 +1,7 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "std_msgs/Int32.h"
+#include "performance_test/SuperAwesome.h"
 
 #include <dynamic_reconfigure/server.h>
 #include <performance_test/performance_test_paramsConfig.h>
@@ -70,7 +71,7 @@ int main(int argc, char **argv)
    * than we can send them, the number here specifies how many messages to
    * buffer up before throwing some away.
    */
-  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+  ros::Publisher chatter_pub = n.advertise<performance_test::SuperAwesome>("chatter", 1000);
 
   ros::Subscriber sub = n.subscribe("PubFreq",1000,pubFreqCallback);
 
@@ -91,13 +92,13 @@ int main(int argc, char **argv)
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
-    std_msgs::String msg;
+    performance_test::SuperAwesome msg;
 
     std::stringstream ss;
     ss << "hello world " << count;
-    msg.data = ss.str();
+    msg.str = ss.str();
 
-    ROS_INFO("%s", msg.data.c_str());
+    ROS_INFO("%s", msg.str.c_str());
 
     /**
      * The publish() function is how you send messages. The parameter
